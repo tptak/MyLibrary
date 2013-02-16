@@ -1,15 +1,16 @@
 package pl.spoldzielnia.mylibrary;
 
+import android.app.ListActivity;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.Menu;
 
-public class MyLibrary extends Activity {
+public class MyLibrary extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_library);
+        
     }
 
 
