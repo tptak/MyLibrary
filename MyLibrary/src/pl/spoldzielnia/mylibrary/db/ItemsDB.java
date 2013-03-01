@@ -1,5 +1,7 @@
 package pl.spoldzielnia.mylibrary.db;
 
+import static pl.spoldzielnia.mylibrary.db.DBConstants.*;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,19 +27,26 @@ public class ItemsDB {
 	}
 
 	public Cursor getAllItems() {
-		Cursor c = db.query("itemsdb", null, null, null, null, null, null);
+		Cursor c = db.rawQuery("SELECT * from items;", null);
 		return c;
+	}
+	
+	public Cursor getAllAvailableItems() {
+		return null;
+	}
+	
+	public Cursor getAllBorrowedItems() {
+		return null;
 	}
 
 	public long insertItem() {
 
 		ContentValues value = new ContentValues();
-		value.put("name", "Tomek Kozlowski");
-		value.put("phone_num", "123456");
-		value.put("email", "riczi@ricz-art.org");
-		value.put("book_title", "Takie tam");
-
-		return db.insert("itemsdb", null, value);
+		value.put(ITEM_ID, 1);
+		value.put(ITEM_NAME, "Chata wuja Toma");
+		value.put(ITEM_ISSUE_DATE, 0);
+		value.put(ITEM_STATUS, 1);
+		return db.insert(ITEM_TABLE_NAME, null, value);
 	}
 
 	public int deleteItem() {

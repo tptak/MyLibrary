@@ -21,18 +21,18 @@ public class DBConstants {
 	public static final String ITEM_STATUS = "status";
 
 	public static final String CREATE_ITEMS_TABLE =
-			"CREATE " + ITEM_TABLE_NAME + " ("
+			"CREATE TABLE " + ITEM_TABLE_NAME + " ("
 			+ ITEM_ID + " INTEGER PRIMARY KEY,"
-			+ ITEM_NAME + " text,"
+			+ ITEM_NAME + " TEXT,"
 			+ ITEM_ISSUE_DATE + " INTEGER,"
-			+ ITEM_STATUS + "INETEGR);";
+			+ ITEM_STATUS + " INTEGER);";
 	
 	public static final String CREATE_BORROWERS_TABLE =
-			"CREATE " + BORROWER_TABLE_NAME + " (" 
+			"CREATE TABLE " + BORROWER_TABLE_NAME + " (" 
 			+ BORROWER_ID + " INTEGER PRIMARY KEY,"
 			+ BORROWER_NAME + " TEXT,"
 			+ BORROWER_PHONE_NUM + " TEXT,"
-			+ BORROWER_EMAIL + " TEXT"
-			+ BORROWER_ITEM_ID + " INTEGER REFERENCES " + ITEM_TABLE_NAME + " (" + ITEM_ID + ");";
+			+ BORROWER_EMAIL + " TEXT,"
+			+ BORROWER_ITEM_ID + " INTEGER REFERENCES " + ITEM_TABLE_NAME + " (" + ITEM_ID + "));";
 
 }
