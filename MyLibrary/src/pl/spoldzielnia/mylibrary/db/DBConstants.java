@@ -16,14 +16,16 @@ public class DBConstants {
 	// Items table
 	public static final String ITEM_TABLE_NAME = "items";
 	public static final String ITEM_ID = "item_id";
-	public static final String ITEM_NAME = "name";
+	public static final String ITEM_AUTHOR_NAME = "author_name";
+	public static final String ITEM_TITLE = "title";
 	public static final String ITEM_ISSUE_DATE = "issue_date";
 	public static final String ITEM_STATUS = "status";
 
 	public static final String CREATE_ITEMS_TABLE =
 			"CREATE TABLE " + ITEM_TABLE_NAME + " ("
 			+ ITEM_ID + " INTEGER PRIMARY KEY,"
-			+ ITEM_NAME + " TEXT,"
+			+ ITEM_AUTHOR_NAME + " TEXT NOT NULL,"
+			+ ITEM_TITLE + " TEXT NOT NULL,"
 			+ ITEM_ISSUE_DATE + " INTEGER,"
 			+ ITEM_STATUS + " INTEGER);";
 	

@@ -9,11 +9,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ItemsDB {
 	private SQLiteDatabase db;
-	private final Context context;
 	private final ItemsDBHelper dbHelper;
 
 	public ItemsDB(Context context) {
-		this.context = context;
 		dbHelper = new ItemsDBHelper(context, DBConstants.DB_NAME, null,
 				DBConstants.DB_VERSION);
 	}
@@ -39,11 +37,30 @@ public class ItemsDB {
 		return null;
 	}
 
+	public long insertItem(String author, String title) {
+		ContentValues value = new ContentValues();
+		value.put(ITEM_AUTHOR_NAME, author);
+		value.put(ITEM_TITLE, title);
+		return db.insert(ITEM_TABLE_NAME, null, value);
+	}
+	
 	public long insertItem() {
 
 		ContentValues value = new ContentValues();
-		value.put(ITEM_ID, 1);
-		value.put(ITEM_NAME, "Chata wuja Toma");
+		//value.put(ITEM_ID, 1);
+		value.put(ITEM_AUTHOR_NAME, "Hugh Grant");
+		value.put(ITEM_TITLE, "Chata wuja Toma");
+		value.put(ITEM_ISSUE_DATE, 0);
+		value.put(ITEM_STATUS, 1);
+		return db.insert(ITEM_TABLE_NAME, null, value);
+	}
+	
+	public long insertItem2() {
+
+		ContentValues value = new ContentValues();
+		//value.put(ITEM_ID, 1);
+		value.put(ITEM_AUTHOR_NAME, "Tomek koloz");
+		value.put(ITEM_TITLE, "Ble ble ble");
 		value.put(ITEM_ISSUE_DATE, 0);
 		value.put(ITEM_STATUS, 1);
 		return db.insert(ITEM_TABLE_NAME, null, value);

@@ -1,7 +1,9 @@
 package pl.spoldzielnia.mylibrary;
 
+import pl.spoldzielnia.mylibrary.db.DBProvider;
 import pl.spoldzielnia.mylibrary.db.ItemsDB;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,16 +16,14 @@ import android.widget.ListView;
 
 public class MyLibrary extends ListActivity {
 
-	private static String[] menuOptions = { "Lent items", "People", "All items", "Insert" };
+	private static String[] menuOptions = { "Lent items", "People", "All items", "Add item" };
 
-	private ItemsDB db;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		db = new ItemsDB(this);
-		db.open();
+		DBProvider.createDb(this);
+		DBProvider.get().open();
 		
 		setContentView(R.layout.activity_my_library);
 
@@ -38,37 +38,44 @@ public class MyLibrary extends ListActivity {
 					long arg3) {
 				switch (arg2) {
 				case 0:
-					Log.v("#### MyLibrary", "Lent items");
+					Log.v("MyLibrary", "Lent items");
 					break;
 				case 1:
-					Log.v("#### MyLibrary", "Peaple");
-					db.insertItem();
+					Log.v("MyLibrary", "People");
 					break;
 				case 2:
-					Log.v("#### MyLibrary", "All Items");
+					Log.v("MyLibrary", "All Items");
 					
-					Cursor c = db.getAllItems();
-					startManagingCursor(c);
-					StringBuilder sb = new StringBuilder();
-					if(c.moveToFirst()) {
-						do {
-							sb.append("id: ");
-							sb.append(c.getString(0));
-							sb.append(", name: ");
-							sb.append(c.getString(1));
-							sb.append(", issue date: ");
-							sb.append(c.getString(2));
-							sb.append(", status: ");
-							sb.append(c.getString(3));
-							sb.append("\n");
-						} while(c.moveToNext());
-					}
-					Log.v("##### MyLibrary",sb.toString());
+					getDBcontent();
 					break;
+				case 3:
+					startActivity(new Intent(MyLibrary.this, AddItem.class));
 				default:
 					break;
 				}
 
+			}
+
+			private void getDBcontent() {
+				Cursor c = DBProvider.get().getAllItems();
+				startManagingCursor(c);
+				StringBuilder sb = new StringBuilder();
+				if(c.moveToFirst()) {
+					do {
+						sb.append("id: ");
+						sb.append(c.getString(0));
+						sb.append(", name: ");
+						sb.append(c.getString(1));
+						sb.append(", title: ");
+						sb.append(c.getString(2));
+						sb.append(", issue date: ");
+						sb.append(c.getString(3));
+						sb.append(", status: ");
+						sb.append(c.getString(4));
+						sb.append("\n");
+					} while(c.moveToNext());
+				}
+				Log.v("MyLibrary",sb.toString());
 			}
 		});
 	}
