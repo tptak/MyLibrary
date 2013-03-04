@@ -50,7 +50,6 @@ public class ItemsDB {
 		//value.put(ITEM_ID, 1);
 		value.put(ITEM_AUTHOR_NAME, "Hugh Grant");
 		value.put(ITEM_TITLE, "Chata wuja Toma");
-		value.put(ITEM_ISSUE_DATE, 0);
 		value.put(ITEM_STATUS, 1);
 		return db.insert(ITEM_TABLE_NAME, null, value);
 	}
@@ -61,7 +60,6 @@ public class ItemsDB {
 		//value.put(ITEM_ID, 1);
 		value.put(ITEM_AUTHOR_NAME, "Tomek koloz");
 		value.put(ITEM_TITLE, "Ble ble ble");
-		value.put(ITEM_ISSUE_DATE, 0);
 		value.put(ITEM_STATUS, 1);
 		return db.insert(ITEM_TABLE_NAME, null, value);
 	}

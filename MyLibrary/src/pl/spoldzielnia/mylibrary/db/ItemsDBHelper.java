@@ -16,6 +16,7 @@ public class ItemsDBHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(DBConstants.CREATE_ITEMS_TABLE);
 		db.execSQL(DBConstants.CREATE_BORROWERS_TABLE);
+		db.execSQL(DBConstants.CREATE_ISSUES_TABLE);
 	}
 
 	@Override
