@@ -1,7 +1,6 @@
 package pl.spoldzielnia.mylibrary;
 
 import pl.spoldzielnia.mylibrary.db.DBProvider;
-import pl.spoldzielnia.mylibrary.db.ItemsDB;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;

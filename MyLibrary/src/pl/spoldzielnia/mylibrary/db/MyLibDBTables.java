@@ -49,7 +49,7 @@ public class MyLibDBTables {
 			TYPE_NAME + " TEXT);";
 	
 	public static final String CREATE_ITEMS_TABLE =
-			"CREATE_TABLE " + ITEMS_TABLE_NAME + " (" +
+			"CREATE TABLE " + ITEMS_TABLE_NAME + " (" +
 			ITEM_ID + TABLE_PRIMARY_KEY_TYPE + ", " +
 			ITEM_NAME + " TEXT, " +
 			ITEM_ADDED_DATE + " DATETIME, " +
@@ -70,7 +70,7 @@ public class MyLibDBTables {
 	public static final String CREATE_RENTALS_TABLE =
 			"CREATE TABLE " + RENTALS_TABLE_NAME + " (" +
 			RENTAL_ID + TABLE_PRIMARY_KEY_TYPE + ", " +
-			PERSON_ID + TABLE_REFERENCE_KEY_TYPE + ", " +
+			PERSON_ID + TABLE_REFERENCE_KEY_TYPE + PEOPLE_TABLE_NAME + ", " +
 			RENTAL_DATE + " DATETIME, " +
 			RENTAL_END_DATE + " DATETIME );";
 	
@@ -78,7 +78,7 @@ public class MyLibDBTables {
 	public static final String CREATE_REMINDERS_TABLE =
 			"CREATE TABLE " + REMINDERS_TABLE_NAME + " ( " +
 			REMINDER_ID + TABLE_PRIMARY_KEY_TYPE + ", " +
-			RENTAL_ID + TABLE_REFERENCE_KEY_TYPE + ", " +
+			RENTAL_ID + TABLE_REFERENCE_KEY_TYPE + RENTALS_TABLE_NAME + ", " +
 			REMINDER_TIME_AFTER + " DATETIME, " +
 			REMINDER_DISSMISS + " BOOLEAN);";
 
