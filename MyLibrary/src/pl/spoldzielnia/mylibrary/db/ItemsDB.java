@@ -1,6 +1,6 @@
 package pl.spoldzielnia.mylibrary.db;
 
-import static pl.spoldzielnia.mylibrary.db.DBConstants.*;
+import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.*;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,8 +12,8 @@ public class ItemsDB {
 	private final ItemsDBHelper dbHelper;
 
 	public ItemsDB(Context context) {
-		dbHelper = new ItemsDBHelper(context, DBConstants.DB_NAME, null,
-				DBConstants.DB_VERSION);
+		dbHelper = new ItemsDBHelper(context, MyLibDBTables.DB_NAME, null,
+				MyLibDBTables.DB_VERSION);
 	}
 
 	public void open() {
@@ -25,7 +25,7 @@ public class ItemsDB {
 	}
 
 	public Cursor getAllItems() {
-		Cursor c = db.rawQuery("SELECT * from items;", null);
+		Cursor c = db.rawQuery("SELECT * from " + ITEMS_TABLE_NAME + ";", null);
 		return c;
 	}
 	
@@ -37,31 +37,11 @@ public class ItemsDB {
 		return null;
 	}
 
+	
 	public long insertItem(String author, String title) {
 		ContentValues value = new ContentValues();
-		value.put(ITEM_AUTHOR_NAME, author);
-		value.put(ITEM_TITLE, title);
-		return db.insert(ITEM_TABLE_NAME, null, value);
-	}
-	
-	public long insertItem() {
-
-		ContentValues value = new ContentValues();
-		//value.put(ITEM_ID, 1);
-		value.put(ITEM_AUTHOR_NAME, "Hugh Grant");
-		value.put(ITEM_TITLE, "Chata wuja Toma");
-		value.put(ITEM_STATUS, 1);
-		return db.insert(ITEM_TABLE_NAME, null, value);
-	}
-	
-	public long insertItem2() {
-
-		ContentValues value = new ContentValues();
-		//value.put(ITEM_ID, 1);
-		value.put(ITEM_AUTHOR_NAME, "Tomek koloz");
-		value.put(ITEM_TITLE, "Ble ble ble");
-		value.put(ITEM_STATUS, 1);
-		return db.insert(ITEM_TABLE_NAME, null, value);
+		value.put(ITEM_NAME, author + " " + title);
+		return db.insert(ITEMS_TABLE_NAME, null, value);
 	}
 
 	public int deleteItem() {
