@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="locations">
+        <item>My Library</item>
+        <item>Lent Items</item>
+        <item>People</item>
+        <item>All Items</item>
+        <item>Item Types</item>
+    </string-array>
+    
+</resources>
