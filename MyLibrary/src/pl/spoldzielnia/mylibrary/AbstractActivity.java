@@ -8,8 +8,8 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockActivity;
 
 public abstract class AbstractActivity extends SherlockActivity implements OnNavigationListener {
 	protected static final String APP_TAG = "MyLibrary";

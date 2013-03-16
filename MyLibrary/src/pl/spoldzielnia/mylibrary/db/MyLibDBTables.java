@@ -16,9 +16,10 @@ public class MyLibDBTables {
 	// Items table
 	public static final String ITEMS_TABLE_NAME = "items";
 	public static final String ITEM_ID = "item_id";
-	public static final String ITEM_NAME = "item_name";
+	public static final String ITEM_TITLE = "title";
+	public static final String ITEM_AUTHOR = "author";
 	public static final String ITEM_ADDED_DATE = "added_date";	
-	public static final String ITEM_TYPE = "type";
+	public static final String ITEM_CATEGORY = "category";
 	
 	// Items Rentals table
 	public static final String ITEMS_RENTALS_TABLE_NAME = "Items_Rentals";
@@ -51,9 +52,10 @@ public class MyLibDBTables {
 	public static final String CREATE_ITEMS_TABLE =
 			"CREATE TABLE " + ITEMS_TABLE_NAME + " (" +
 			ITEM_ID + TABLE_PRIMARY_KEY_TYPE + ", " +
-			ITEM_NAME + " TEXT, " +
+			ITEM_AUTHOR + " TEXT, " +
+			ITEM_TITLE + " TEXT, " +
 			ITEM_ADDED_DATE + " DATETIME, " +
-			ITEM_TYPE + TABLE_REFERENCE_KEY_TYPE + TYPES_TABLE_NAME + ");";
+			ITEM_CATEGORY + " INTEGER);";
 	
 	public static final String CREATE_ITEMS_RENTALS_TABLE =
 			"CREATE TABLE " + ITEMS_RENTALS_TABLE_NAME + " (" +
