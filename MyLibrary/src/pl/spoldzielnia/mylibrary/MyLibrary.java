@@ -55,6 +55,7 @@ public class MyLibrary extends ListActivity {
 
 			}
 
+			@SuppressWarnings("deprecation")
 			private void getDBcontent() {
 				Cursor c = DBProvider.get().getAllItems();
 				startManagingCursor(c);
