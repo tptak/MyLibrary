@@ -1,9 +1,6 @@
 package pl.spoldzielnia.mylibrary;
 
-import java.util.List;
-
 import pl.spoldzielnia.mylibrary.db.DBProvider;
-import pl.spoldzielnia.mylibrary.db.Item;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
