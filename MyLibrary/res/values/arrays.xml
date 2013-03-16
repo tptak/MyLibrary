@@ -2,11 +2,11 @@
 <resources>
     
     <string-array name="locations">
-        <item>My Library</item>
-        <item>Lent Items</item>
-        <item>People</item>
-        <item>All Items</item>
-        <item>Item Types</item>
+        <item>@string/title_activity_main</item>
+        <item>@string/title_activity_lent_items</item>
+        <item>@string/title_activity_people</item>
+        <item>@string/title_activity_all_items</item>
+        <item>@string/title_activity_types</item>
     </string-array>
     
 </resources>
