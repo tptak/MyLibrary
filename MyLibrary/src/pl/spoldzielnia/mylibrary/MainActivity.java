@@ -1,6 +1,5 @@
 package pl.spoldzielnia.mylibrary;
 
-import pl.spoldzielnia.mylibrary.db.DBProvider;
 import android.os.Bundle;
 
 public class MainActivity extends AbstractActivity {
@@ -15,13 +14,6 @@ public class MainActivity extends AbstractActivity {
 		
 		setContentView(R.layout.activity_main);
 		
-	}
-	
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		
-		DBProvider.get().close();
 	}
 
 }

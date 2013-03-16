@@ -8,10 +8,10 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.app.SherlockListActivity;
 
-public abstract class AbstractActivity extends SherlockActivity implements OnNavigationListener {
+public abstract class AbstractListActivity extends SherlockListActivity implements OnNavigationListener {
 	protected static final String APP_TAG = "MyLibrary";
 	protected int activityResourceId = 0;
 	protected int activityListIndex = 0;
@@ -19,7 +19,7 @@ public abstract class AbstractActivity extends SherlockActivity implements OnNav
 
 	protected ArrayAdapter<CharSequence> list;
 	
-	public AbstractActivity(int activityStringResourceId) {
+	public AbstractListActivity(int activityStringResourceId) {
 		this.activityResourceId = activityStringResourceId;
 	}
 	
@@ -87,5 +87,4 @@ public abstract class AbstractActivity extends SherlockActivity implements OnNav
 		super.onPause();
 		DBProvider.get().close();
 	}
-	
 }
