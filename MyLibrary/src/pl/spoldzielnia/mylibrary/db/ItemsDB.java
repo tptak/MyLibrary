@@ -59,37 +59,16 @@ public class ItemsDB {
 		}
 		
 		while(c.moveToNext()) {
-			String author = c.getString(0);
-			String title = c.getString(1);
-			int item_category = c.getInt(2);
+			String author = c.getString(c.getColumnIndex(ITEM_AUTHOR));
+			String title = c.getString(c.getColumnIndex(ITEM_TITLE));
+			int item_category = c.getInt(c.getColumnIndex(ITEM_CATEGORY));
 			Log.v("MyLibrary", "Author:" + author + ", title:" + title + ", category:" + item_category);
 			items.add(new Item(author, title, item_category));
 		}
 		
+		c.close();
+		
 		return items;
 	}
 	
-	public Cursor getAllItems() {
-		Cursor c = db.rawQuery("SELECT * from " + ITEMS_TABLE_NAME + ";", null);
-		return c;
-	}
-	
-	public Cursor getAllAvailableItems() {
-		return null;
-	}
-	
-	public Cursor getAllBorrowedItems() {
-		return null;
-	}
-
-	
-	public long insertItem(String author, String title) {
-		ContentValues value = new ContentValues();
-		//value.put(ITEM_NAME, author + " " + title);
-		return db.insert(ITEMS_TABLE_NAME, null, value);
-	}
-
-	public int deleteItem() {
-		return -1;
-	}
 }
