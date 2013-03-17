@@ -4,6 +4,7 @@ import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEMS_TABLE_NAME;
 import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_AUTHOR;
 import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_CATEGORY;
 import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_TITLE;
+import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_ID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,38 @@ public class ItemsDB {
 		c.close();
 		
 		return items;
+	}
+	
+	public List<Item> getAllItems() {
+		String [] columns = {ITEM_AUTHOR, ITEM_TITLE, ITEM_CATEGORY};
+		Cursor c = db.query(ITEMS_TABLE_NAME, columns, null,
+				null, null, null, null);
+		
+		List<Item> items = new ArrayList<Item>();
+		int size = c.getCount();
+		Log.v("MyLibrary", "Number of queried items: " + size);
+		if(size==0) {
+			return null;
+		}
+		
+		while(c.moveToNext()) {
+			String author = c.getString(c.getColumnIndex(ITEM_AUTHOR));
+			String title = c.getString(c.getColumnIndex(ITEM_TITLE));
+			int item_category = c.getInt(c.getColumnIndex(ITEM_CATEGORY));
+			Log.v("MyLibrary", "Author:" + author + ", title:" + title + ", category:" + item_category);
+			items.add(new Item(author, title, item_category));
+		}
+		
+		c.close();
+		
+		return items;
+	}
+	
+	public Cursor getAllItemsCursor() {
+		String [] columns = {ITEM_ID + " _id", ITEM_AUTHOR, ITEM_TITLE, ITEM_CATEGORY};
+		return db.query(ITEMS_TABLE_NAME, columns, null,
+				null, null, null, null);
+		
 	}
 	
 }
