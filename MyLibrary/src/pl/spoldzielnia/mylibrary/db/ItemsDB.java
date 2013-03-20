@@ -48,7 +48,7 @@ public class ItemsDB {
 	}
 	
 	public List<Item> getItemsByCategory(int category) {
-		String [] columns = {ITEM_AUTHOR, ITEM_TITLE, ITEM_CATEGORY};
+		String [] columns = {ITEM_ID + " _id", ITEM_AUTHOR, ITEM_TITLE, ITEM_CATEGORY};
 		Cursor c = db.query(ITEMS_TABLE_NAME, columns, ITEM_CATEGORY + "=?",
 				new String[] { Integer.toString(category) }, null, null, null);
 		
