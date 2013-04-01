@@ -26,7 +26,7 @@ public abstract class AbstractListActivity extends SherlockListActivity implemen
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		overridePendingTransition(0, 0);
 		
 		activityName = getString(activityResourceId);
 

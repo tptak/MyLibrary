@@ -2,7 +2,7 @@ package pl.spoldzielnia.mylibrary;
 
 import android.os.Bundle;
 
-public class MainActivity extends AbstractActivity {
+public class MainActivity extends AbstractListActivity {
 	
 	public MainActivity() {
 		super(R.string.title_activity_main);
