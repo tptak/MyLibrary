@@ -4,12 +4,12 @@ public class Item {
 
 	private String author;
 	private String title;
-	private int catrgory;
+	private String category;
 	
-	public Item(String author, String title, int category) {
+	public Item(String author, String title, String category) {
 		this.author = author;
 		this.title = title;
-		this.catrgory = category;
+		this.category = category;
 	}
 
 	public String getAuthor() {
@@ -24,11 +24,11 @@ public class Item {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public int getCatrgory() {
-		return catrgory;
+	public String getCategory() {
+		return category;
 	}
-	public void setCatrgory(int catrgory) {
-		this.catrgory = catrgory;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	

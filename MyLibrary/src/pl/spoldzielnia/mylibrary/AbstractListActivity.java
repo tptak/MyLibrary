@@ -11,8 +11,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockListActivity;
 
-public abstract class AbstractListActivity extends SherlockListActivity implements OnNavigationListener {
-	protected static final String APP_TAG = "MyLibrary";
+public abstract class AbstractListActivity extends SherlockListActivity implements OnNavigationListener, Constants {
 	protected int activityResourceId = 0;
 	protected int activityListIndex = 0;
 	protected String activityName;

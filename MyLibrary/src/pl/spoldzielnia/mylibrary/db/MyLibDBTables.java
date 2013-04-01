@@ -11,6 +11,7 @@ public class MyLibDBTables {
 
 	// Types of items table
 	public static final String TYPES_TABLE_NAME = "Types";
+	public static final String TYPE_ID = "type_id"; 
 	public static final String TYPE_NAME = "type_name"; 
 	
 	// Items table
@@ -47,6 +48,7 @@ public class MyLibDBTables {
 	
 	public static final String CREATE_TYPES_TABLE =
 			"CREATE TABLE " + TYPES_TABLE_NAME + " (" +
+			TYPE_ID + TABLE_PRIMARY_KEY_TYPE + ", " +
 			TYPE_NAME + " TEXT);";
 	
 	public static final String CREATE_ITEMS_TABLE =
@@ -55,7 +57,7 @@ public class MyLibDBTables {
 			ITEM_AUTHOR + " TEXT, " +
 			ITEM_TITLE + " TEXT, " +
 			ITEM_ADDED_DATE + " DATETIME, " +
-			ITEM_CATEGORY + " INTEGER);";
+			ITEM_CATEGORY + TABLE_REFERENCE_KEY_TYPE + TYPES_TABLE_NAME + " );";
 	
 	public static final String CREATE_ITEMS_RENTALS_TABLE =
 			"CREATE TABLE " + ITEMS_RENTALS_TABLE_NAME + " (" +
@@ -83,6 +85,13 @@ public class MyLibDBTables {
 			RENTAL_ID + TABLE_REFERENCE_KEY_TYPE + RENTALS_TABLE_NAME + ", " +
 			REMINDER_TIME_AFTER + " DATETIME, " +
 			REMINDER_DISSMISS + " BOOLEAN);";
+	
+	public static final String PREPOPULATE_TYPES = 
+			"INSERT INTO '" + TYPES_TABLE_NAME +	"'" +
+			" SELECT 1 AS '" + TYPE_ID + "', 'BOOK' AS '" + TYPE_NAME + "'" + 
+			" UNION SELECT 2, 'VIDEO'" +
+			" UNION SELECT 3, 'MUSIC'" +
+			" UNION SELECT 4, 'OTHER';";
 
 	  public static void onCreate(SQLiteDatabase database) {
 	    database.execSQL(CREATE_TYPES_TABLE);
@@ -91,6 +100,7 @@ public class MyLibDBTables {
 	    database.execSQL(CREATE_REMINDERS_TABLE);
 	    database.execSQL(CREATE_ITEMS_RENTALS_TABLE);
 	    database.execSQL(CREATE_RENTALS_TABLE);
+	    database.execSQL(PREPOPULATE_TYPES);
 	  }
 
 	  public static void onUpgrade(SQLiteDatabase database, int oldVersion,
