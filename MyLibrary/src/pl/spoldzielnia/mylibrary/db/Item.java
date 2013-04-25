@@ -1,15 +1,41 @@
 package pl.spoldzielnia.mylibrary.db;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "items")
 public class Item {
 
-	private String author;
-	private String title;
-	private String category;
+	@DatabaseField(generatedId = true, columnName = "item_id")
+	private Long id;
 	
-	public Item(String author, String title, String category) {
+	@DatabaseField(canBeNull = false, columnName = "author")
+	private String author;
+	
+	@DatabaseField(canBeNull = false, columnName = "title")
+	private String title;
+	
+	@DatabaseField(canBeNull = false, foreign = true, columnName = "category_id")
+	private Category category;
+
+	// FIXME nie ma added_date
+	
+	public Item() {
+		super();
+	}
+	
+	public Item(String author, String title, Category category) {
 		this.author = author;
 		this.title = title;
 		this.category = category;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getAuthor() {
@@ -24,10 +50,10 @@ public class Item {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 	

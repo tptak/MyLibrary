@@ -77,7 +77,8 @@ public class ItemsDB {
 			String title = c.getString(c.getColumnIndex(ITEM_TITLE));
 			String item_category = c.getString(c.getColumnIndex(ITEM_CATEGORY));
 			Log.v("MyLibrary", "Author:" + author + ", title:" + title + ", category:" + item_category);
-			items.add(new Item(author, title, item_category));
+//			items.add(new Item(author, title, item_category));
+//			FIXME remove if not needed
 		}
 		
 		c.close();
@@ -102,7 +103,8 @@ public class ItemsDB {
 			String title = c.getString(c.getColumnIndex(ITEM_TITLE));
 			String item_category = c.getString(c.getColumnIndex(ITEM_CATEGORY));
 			Log.v("MyLibrary", "Author:" + author + ", title:" + title + ", category:" + item_category);
-			items.add(new Item(author, title, item_category));
+//			items.add(new Item(author, title, item_category));
+//			FIXME remove if not needed
 		}
 		
 		c.close();
