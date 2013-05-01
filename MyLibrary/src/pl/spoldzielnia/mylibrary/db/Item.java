@@ -15,7 +15,7 @@ public class Item {
 	@DatabaseField(canBeNull = false, columnName = "title")
 	private String title;
 	
-	@DatabaseField(canBeNull = false, foreign = true, columnName = "category_id")
+	@DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true, columnName = "category_id")
 	private Category category;
 
 	// FIXME nie ma added_date
@@ -57,5 +57,8 @@ public class Item {
 		this.category = category;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return String.format("%s - %s (%s)", getAuthor(), getTitle(), getCategory().getName());
+	}
 }

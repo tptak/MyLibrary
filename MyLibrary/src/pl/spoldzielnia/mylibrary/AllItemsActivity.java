@@ -1,20 +1,22 @@
 package pl.spoldzielnia.mylibrary;
 
-import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_AUTHOR;
-import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.ITEM_TITLE;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
+import java.sql.SQLException;
+import java.util.List;
 
-import pl.spoldzielnia.mylibrary.db.DBProvider;
+import pl.spoldzielnia.mylibrary.db.Item;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.j256.ormlite.dao.Dao;
 
 public class AllItemsActivity extends AbstractListActivity {
 	
@@ -32,15 +34,18 @@ public class AllItemsActivity extends AbstractListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
-		//TODO obtain the needed data, columns here are an example
-		String [] columns = {ITEM_AUTHOR, ITEM_TITLE};
-		
-		//TODO use a nicer layout for list item (future)
-		int [] ids = {android.R.id.text2, android.R.id.text1};
-		setListAdapter(new SimpleCursorAdapter(this,
-				android.R.layout.simple_list_item_2, DBProvider.get()
-				.getAllItemsCursor(), columns, ids, 0));
+		//FIXME move below line to a better place
+		getHelper().getWritableDatabase();
+		try {
+			Dao<Item, Integer> dao = getHelper().getDao(Item.class);
+			
+			List<Item> itemsList = dao.queryForAll();
+			
+			setListAdapter(new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, itemsList));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

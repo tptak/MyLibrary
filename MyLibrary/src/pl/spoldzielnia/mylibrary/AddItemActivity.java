@@ -1,19 +1,23 @@
 package pl.spoldzielnia.mylibrary;
 
-import static pl.spoldzielnia.mylibrary.db.MyLibDBTables.TYPE_NAME;
-import pl.spoldzielnia.mylibrary.db.DBProvider;
+import java.sql.SQLException;
+
+import pl.spoldzielnia.mylibrary.db.Category;
+import pl.spoldzielnia.mylibrary.db.Item;
+import pl.spoldzielnia.mylibrary.db.ItemsDBHelper;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 
-public class AddItemActivity extends SherlockActivity implements Constants {
+public class AddItemActivity extends OrmLiteBaseActivity<ItemsDBHelper> implements Constants {
 
 	private Spinner categorySpinner;
 	private Button saveButton;
@@ -35,7 +39,6 @@ public class AddItemActivity extends SherlockActivity implements Constants {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		DBProvider.get().open();
 		fillSpinnerFields();
 	}
 	
@@ -45,11 +48,14 @@ public class AddItemActivity extends SherlockActivity implements Constants {
 	 * Fills the spinner with categories
 	 */
 	private void fillSpinnerFields() {
-		String [] columns = {TYPE_NAME};
+		try {
+			ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_item, getHelper().getDao(Category.class).queryForAll());
+			categorySpinner.setAdapter(adapter);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		int [] ids = {android.R.id.text1};
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, DBProvider.get().getCategoriesCursor(), columns, ids, 0);
-		categorySpinner.setAdapter(adapter);
 	}
 
 	/**
@@ -68,8 +74,18 @@ public class AddItemActivity extends SherlockActivity implements Constants {
 			EditText titleField = (EditText) findViewById(R.id.title_field);
 			Spinner categoryField = (Spinner) findViewById(R.id.category_field);
 			
-			// TODO I only get the ID from the list. It may be wrong. I don't care right now.
-			DBProvider.get().addItem((int) categoryField.getSelectedItemId(), titleField.getText().toString(), autorField.getText().toString());
+			
+			Item item = new Item();
+			item.setAuthor(autorField.getText().toString());
+			item.setTitle(titleField.getText().toString());
+			item.setCategory((Category) categoryField.getSelectedItem());
+			try {
+				getHelper().getDao(Item.class).create(item);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			finish();
 		}
 		
