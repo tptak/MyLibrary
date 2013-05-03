@@ -12,6 +12,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 
 import com.actionbarsherlock.view.Menu;
@@ -37,15 +38,19 @@ public class AllItemsActivity extends AbstractListActivity {
 		//FIXME move below line to a better place
 		getHelper().getWritableDatabase();
 		try {
-			Dao<Item, Integer> dao = getHelper().getDao(Item.class);
-			
-			List<Item> itemsList = dao.queryForAll();
-			
-			setListAdapter(new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, itemsList));
+			getItemsList();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void getItemsList() throws SQLException {
+		Dao<Item, Integer> dao = getHelper().getDao(Item.class);
+		
+		List<Item> itemsList = dao.queryForAll();
+		
+		setListAdapter(new ArrayAdapter<Item>(this, android.R.layout.simple_list_item_1, itemsList));
 	}
 	
 
@@ -81,8 +86,32 @@ public class AllItemsActivity extends AbstractListActivity {
     
     @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
-    	// TODO Auto-generated method stub
-    	return super.onContextItemSelected(item);
+    	boolean result = false;
+    	switch(item.getItemId()) {
+	    	case R.id.item_delete:
+				try {
+					Dao<Item, ?> dao = getHelper().getDao(Item.class);
+					AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+					Item object = (Item) getListAdapter().getItem(menuInfo.position);
+					
+					result = dao.delete(object) == 1;
+					if (result) {
+						getItemsList();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					result = false;
+				}
+	    	case R.id.item_edit:
+				// TODO
+	    		break;
+	    	case R.id.item_view:
+				// TODO
+	    		break;
+	    	default:
+	    		result = super.onContextItemSelected(item);
+    	}
+    	return result;
     }
     
 	

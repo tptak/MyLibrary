@@ -6,7 +6,6 @@ import pl.spoldzielnia.mylibrary.db.Category;
 import pl.spoldzielnia.mylibrary.db.Item;
 import pl.spoldzielnia.mylibrary.db.ItemsDBHelper;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
