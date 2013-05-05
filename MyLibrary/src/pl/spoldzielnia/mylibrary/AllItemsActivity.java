@@ -21,6 +21,9 @@ import com.j256.ormlite.dao.Dao;
 
 public class AllItemsActivity extends AbstractListActivity {
 	
+	public static final String OBJECT_ID = "OBJECT_ID";
+	private static final int EDIT_ITEM = 0;
+	
 	public AllItemsActivity() {
 		super(R.string.title_activity_all_items);
 	}
@@ -87,12 +90,12 @@ public class AllItemsActivity extends AbstractListActivity {
     @Override
     public boolean onContextItemSelected(android.view.MenuItem item) {
     	boolean result = false;
+    	AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+    	Item object = (Item) getListAdapter().getItem(menuInfo.position);
     	switch(item.getItemId()) {
 	    	case R.id.item_delete:
 				try {
 					Dao<Item, ?> dao = getHelper().getDao(Item.class);
-					AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-					Item object = (Item) getListAdapter().getItem(menuInfo.position);
 					
 					result = dao.delete(object) == 1;
 					if (result) {
@@ -103,7 +106,10 @@ public class AllItemsActivity extends AbstractListActivity {
 					result = false;
 				}
 	    	case R.id.item_edit:
-				// TODO
+				Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
+				intent.putExtra(OBJECT_ID, object.getId());
+				startActivityForResult(intent, EDIT_ITEM);
+				result = true;
 	    		break;
 	    	case R.id.item_view:
 				// TODO
@@ -114,5 +120,21 @@ public class AllItemsActivity extends AbstractListActivity {
     	return result;
     }
     
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	switch(requestCode) {
+    	case EDIT_ITEM:
+    		if(RESULT_OK==resultCode) {
+				try {
+					getItemsList();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    		break;
+    	}
+    }
 	
 }
