@@ -105,6 +105,7 @@ public class AllItemsActivity extends AbstractListActivity {
 					e.printStackTrace();
 					result = false;
 				}
+				break;
 	    	case R.id.item_edit:
 				Intent intent = new Intent(getApplicationContext(), AddItemActivity.class);
 				intent.putExtra(OBJECT_ID, object.getId());
