@@ -1,5 +1,8 @@
 package pl.spoldzielnia.mylibrary;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import pl.spoldzielnia.mylibrary.db.ItemsDBHelper;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +19,8 @@ import com.j256.ormlite.support.ConnectionSource;
 
 public abstract class AbstractListActivity extends SherlockListActivity implements OnNavigationListener, Constants {
 
+	private final static Logger LOG = LoggerFactory.getLogger(AbstractListActivity.class);
+	// TODO: think if volatile for instance is safe?
 	private volatile ItemsDBHelper helper;
 	private volatile boolean created = false;
 	private volatile boolean destroyed = false;
@@ -57,6 +62,7 @@ public abstract class AbstractListActivity extends SherlockListActivity implemen
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
+		LOG.debug("Activity list created. Name: " + activityName);
 	}
 	
 	@Override
@@ -69,18 +75,22 @@ public abstract class AbstractListActivity extends SherlockListActivity implemen
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		String activityName = list.getItem(itemPosition).toString();
 		Log.d(APP_TAG, "Selected element: " + activityName);
+		LOG.debug("Selected element: " + activityName);
 		
 		if(itemPosition != this.activityListIndex) {
 			Log.d(APP_TAG, "Performing activity switch");
+			LOG.debug("Performing activity switch");
 			
 			Class<?> activityClass = ActivityNavigator.getMapping(activityName);
 			
 			if(null!=activityClass) {
 				Intent myIntent = new Intent(this, activityClass );
 	            startActivityForResult(myIntent, 0);
+	            LOG.info("Start " + activityClass.getSimpleName() + " activity for result.");
 	            return true;
 			} else {
 				Log.w(APP_TAG, "Activity mapping not found: " + activityName);
+				LOG.warn("Activity mapping not found: " + activityName);
 				getSupportActionBar().setSelectedNavigationItem(this.activityListIndex);
 			}
 			
